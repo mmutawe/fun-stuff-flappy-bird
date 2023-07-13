@@ -6,10 +6,12 @@ public class birdMovement : MonoBehaviour
 {
     public Rigidbody2D myRigidbody2D;
     
-    public float upSpeed = 5;
-    public float rotationSpeed = -140;
+    private float upSpeed = 6;
+    private float rotationSpeed = -130;
+    private Animator birdAnimator;
     void Start()
     {
+        birdAnimator = GetComponent<Animator>();
         gameObject.name = "flappy bird";
     }
 
@@ -22,7 +24,8 @@ public class birdMovement : MonoBehaviour
         {
             myRigidbody2D.velocity = Vector2.up * upSpeed ;
             // myRigidbody2D.AddForce(Vector2.up * 500);
-            transform.rotation = Quaternion.Euler(new Vector3(0,0,80));
+            transform.rotation = Quaternion.Euler(new Vector3(0,0,70));
+            birdAnimator.SetTrigger("isFlapping");
         }
 
         if (zRotation < 90f || zRotation > 270f)
@@ -31,11 +34,14 @@ public class birdMovement : MonoBehaviour
             // Debug.Log("Rotation : " + transform.rotation.eulerAngles.z);
             transform.Rotate(new Vector3(0,0, rotationSpeed) * Time.deltaTime, Space.Self);
         }
+        
         // else
         // {
         //     Debug.Log("Rotation is larger than -90 degrees.");
         //     transform.rotation = Quaternion.Euler(new Vector3(0,0,-90));
         // }
+
+        // birdAnimator.SetBool("isFlapping",false);
 
     }
 }
